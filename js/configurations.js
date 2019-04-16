@@ -1,0 +1,7 @@
+"use strict";
+exports.__esModule = true;
+exports.lean_cloud_config = {
+    'appId': 'ziDdpY37V76MBQze2M5yf1sV-gzGzoHsz',
+    'key': 'v3IdUshBFDbvHceSHDcULTUc'
+};
+//# sourceMappingURL=configurations.js.map

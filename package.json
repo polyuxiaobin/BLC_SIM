@@ -1,0 +1,33 @@
+{
+  "name": "typescript_jquery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc ts-src/*.ts --outDir js --sourceMap",
+    "bundle": "browserify js/*.js -o bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc ts-src/*.ts --outDir js;browserify js/*.js -o bundle.js",
+    "dev": "lite-server"
+  },
+  "keywords": [],
+  "author": "ray",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/bootstrap": "^4.2.2",
+    "@types/jquery": "^3.3.29",
+    "browserify": "^16.2.3",
+    "grunt": "^1.0.3",
+    "grunt-typescript": "^0.8.0",
+    "lite-server": "^2.4.0",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.2.2",
+    "typings": "^2.1.1",
+    "webpack": "^4.28.4"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.3.1",
+    "systemjs": "^0.21.5"
+  }
+}

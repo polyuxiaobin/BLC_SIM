@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Experiment Central Panel</title>
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" >
+    
+    <!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    
+    <!-- Custom styles for this template -->
+    <style type="text/css">
+        body {
+            padding-top: 5rem;
+        }
+
+        .starter-template {
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+        
+        .rale{
+           font-family: 'Raleway', sans-serif;
+        }
+        
+        .icon-right-margin {
+          margin-right:5px;
+        }
+        .button-top-margin {
+          margin-top:5px;
+        }
+    </style>
+</head>
+
+    
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Experiment Central Panel <span style="color: gray;padding-left: 5px;font-size: 14px;"><span id="expIDShow"></span> by <span id="userShow"></span></span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+      
+      <div id="information-tip">
+      
+      </div>
+      
+      
+      
+      
+      
+
+      <h3 style="padding-bottom:10px;" class="rale">Blockchain Central Control Panel</h3>
+        
+        
+        
+        
+        <div>
+            <button class="btn btn-primary btn-sm" id="startAllBtn"  type="button" running="false" node_order="1">
+                <i class="fas fa-sync-alt" style="padding-right:5px;"></i>Start All
+            </button>
+
+            <button class="btn btn-secondary btn-sm" id="addNewNodeBtn"  type="button" running="false" node_order="1">
+                <i class="fas fa-hockey-puck" style="padding-right:5px;"></i>Add Instance
+            </button>
+
+
+            <button class="btn btn-secondary btn-sm" id="loadConfBtn"  type="button" running="false" node_order="1">
+                <i class="fas fa-cloud-upload-alt" style="padding-right:5px;"></i>Load
+            </button>
+
+            <button class="btn btn-secondary btn-sm" id="saveConfBtn"  type="button" running="false" node_order="1">
+                <i class="fas fa-cloud-download-alt" style="padding-right:5px;"></i>Save
+            </button>
+            
+            
+        </div>
+        
+        <!-- <span class="rale" style="padding-bottom:5px;">Active Nodes</span>  -->
+        <hr>
+        <div class="accordion" id="accordionExample" style="padding-top: 10px;">
+<!--           
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" aria-controls="collapseOne">
+          <i class="fas fa-server icon-right-margin"></i>Collapsible Group Item #1 
+        </button>
+
+        <button class="btn btn-primary btn-sm launchBtn" disabled type="button" running="false">
+          
+              <span style="margin-right:5px;">
+                  <i class="fas fa-play"></i>  
+              </span>Start
+          </button>
+        
+      </h2>
+    </div>
+
+    <div id="collapse_1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+         
+         <div class="node_details">
+           <div class="row">
+  <div class="col-4">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a class="list-group-item list-group-item-action active" id="list-node-list" data-toggle="list" href="#list-node" role="tab" aria-controls="node">Node</a>
+      <a class="list-group-item list-group-item-action" id="list-behavior-list" data-toggle="list" href="#list-behavior" role="tab" aria-controls="behavior">Transactions</a>
+      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-mine" role="tab" aria-controls="mine">Mine</a>
+      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Traffic</a>
+      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="tab-content" id="nav-tabContent">
+      
+      <div class="tab-pane fade show active" id="list-node" role="tabpanel" aria-labelledby="list-node-list">
+        
+   
+
+       <div class="list-group">
+
+  <div href="#" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">IP Address</h5>
+        
+      </div>
+      <p class="mb-1"><input type="text" class="form-control ip_input" placeholder="Input public IP address" aria-label="Username" aria-describedby="addon-wrapping"></p>
+      <small class="text-muted">The public IP address</small>
+    </div>
+
+  <div href="#" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Information</h5>
+      
+    </div>
+    <p class="mb-1">
+      NodeID: <span class="node_id_value">Unknown</span>
+    </p>
+
+    <p class="mb-1">
+        Registered: <span class="node_if_registered">Unknown</span>
+    </p>
+
+    <p class="mb-1">
+      Traffic Recorded: <span class="node_if_traffic_recorded">Unknown</span>
+  </p>
+
+
+
+    <small class="text-muted">The identifier of this node</small>
+</div>
+
+</div>
+
+<button id="connectBtn_0" node_id="1" style="margin-top:10px;" type="button" class="btn btn-primary btn-block connect_btn">
+  Connect</button>
+        
+        
+      </div>
+      <div class="tab-pane fade" id="list-behavior" role="tabpanel" aria-labelledby="list-behavior-list">
+        
+
+       <div class="list-group">
+
+  <div href="#" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Action Route</h5>
+        <small>seconds</small>
+      </div>
+      <p class="mb-1 tx_route_wrapper"><input class="form-control" placeholder="Interval in seconds.0 means no transaction generated on this node." aria-label="Username" aria-describedby="addon-wrapping"></p>
+    
+       <small class="text-muted">The route to generate a new transaction</small>
+      </div>
+
+  <div href="#" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Transaction Generation Average Interval</h5>
+      <small>seconds</small>
+    </div>
+    <p class="mb-1"><input type="number" class="form-control txGenerateInterval_input" class="form-control" placeholder="Interval in seconds.0 means no transaction generated on this node." aria-label="Username" aria-describedby="addon-wrapping"></p>
+    <small class="text-muted">The interval of transaction generated</small>
+  </div>
+  <div href="#" class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">Transaction Random Delay</h5>
+      <small>seconds</small>
+    </div>
+    <p class="mb-1"><input type="number" class="form-control txRandomDelay_input" class="form-control" placeholder="The range of random delay" aria-label="Username" aria-describedby="addon-wrapping"></p>
+    <small class="text-muted">Transaction delay in random</small>
+  </div>
+</div>
+        
+        
+        
+        
+      </div>
+      <div class="tab-pane fade" id="list-mine" role="tabpanel" aria-labelledby="list-mine-list">
+          <div href="#" class="list-group-item list-group-item-action">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">Action Route</h5>
+                <small>seconds</small>
+              </div>
+              <p class="mb-1 mining_route_wrapper"><input class="form-control" placeholder="Interval in seconds.0 means no transaction generated on this node." aria-label="Username" aria-describedby="addon-wrapping"></p>
+            
+               <small class="text-muted">The interval of transaction generated</small>
+              </div>
+      </div>
+      <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+        <div href="#" class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Loaded Consensus</h5>
+           
+          </div>
+          <p class="mb-1 consensus_loaded_p"><input type="text" disabled class="form-control maxTranPerBlock_input" class="form-control" placeholder="connect to an active node to show consensus loaded" aria-label="Username" aria-describedby="addon-wrapping"></p>
+          <small class="text-muted">import path:<span class="consensus_loaded_path"></span></small>
+        </div>
+        
+        <div class="user_setting_content"></div>
+
+        <div class="save_conf_button_wrapper">
+          <button style="margin-top:10px;" type="button" class="btn btn-primary btn-block">Save</button>
+        </div>
+        
+
+      </div>
+    </div>
+  </div>
+</div>
+           
+           
+           
+           
+           
+           
+         </div>
+         
+         
+      </div>
+    </div>
+  </div> -->
+  
+
+
+
+<!-- 
+  <div class="card">
+      <div class="card-header" id="heading2">
+        <h2 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_2" aria-expanded="true" aria-controls="collapseOne">
+            <i class="fas fa-server icon-right-margin"></i>Collapsible Group Item #1 
+          </button>
+  
+          <button class="btn btn-primary btn-sm launchBtn" disabled type="button" running="false">
+                <span style="margin-right:5px;">
+                    <i class="fas fa-play"></i>  
+                </span>Start
+            </button>
+          
+        </h2>
+      </div>
+  
+      <div id="collapse_2" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+           
+           <div class="node_details">
+             <div class="row">
+    <div class="col-4">
+      <div class="list-group" id="list-tab-2" role="tablist">
+        <a class="list-group-item list-group-item-action active" id="list-node-list-2" data-toggle="list" href="#list-node-2" role="tab" aria-controls="node">Node</a>
+        <a class="list-group-item list-group-item-action" id="list-behavior-list-2" data-toggle="list" href="#list-behavior-2" role="tab" aria-controls="behavior">Transactions</a>
+        <a class="list-group-item list-group-item-action" id="list-messages-list-2" data-toggle="list" href="#list-mine-2" role="tab" aria-controls="mine">Mine</a>
+        <a class="list-group-item list-group-item-action" id="list-messages-list-2" data-toggle="list" href="#list-messages-2" role="tab" aria-controls="messages">Traffic</a>
+        <a class="list-group-item list-group-item-action" id="list-settings-list-2" data-toggle="list" href="#list-settings-2" role="tab" aria-controls="settings">Settings</a>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent-2">
+        
+        <div class="tab-pane fade show active" id="list-node-2" role="tabpanel" aria-labelledby="list-node-list-2">
+          
+  
+         <div class="list-group">
+  
+    <div href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">IP Address</h5>
+          
+        </div>
+        <p class="mb-1"><input type="text" class="form-control ip_input" placeholder="Input public IP address" aria-label="Username" aria-describedby="addon-wrapping"></p>
+        <small class="text-muted">The public IP address</small>
+      </div>
+  
+    <div href="#" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Information</h5>
+        
+      </div>
+      <p class="mb-1">
+        NodeID: <span class="node_id_value">Unknown</span>
+      </p>
+  
+      <p class="mb-1">
+          Registered: <span class="node_if_registered">Unknown</span>
+      </p>
+  
+      <p class="mb-1">
+        Traffic Recorded: <span class="node_if_traffic_recorded">Unknown</span>
+    </p>
+  
+  
+  
+      <small class="text-muted">The identifier of this node</small>
+  </div>
+  
+  </div>
+  
+  <button id="connectBtn_2" node_id="2" style="margin-top:10px;" type="button" class="btn btn-primary btn-block connect_btn">
+    Connect</button>
+          
+          
+          
+        </div>
+        <div class="tab-pane fade" id="list-behavior-2" role="tabpanel" aria-labelledby="list-behavior-list">
+          
+  
+         <div class="list-group">
+  
+    <div href="#" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">Action Route</h5>
+          <small>seconds</small>
+        </div>
+        <p class="mb-1 tx_route_wrapper"><input class="form-control" placeholder="Interval in seconds.0 means no transaction generated on this node." aria-label="Username" aria-describedby="addon-wrapping"></p>
+      
+         <small class="text-muted">The route to generate a new transaction</small>
+        </div>
+  
+    <div href="#" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Transaction Generation Average Interval</h5>
+        <small>seconds</small>
+      </div>
+      <p class="mb-1"><input type="number" class="form-control txGenerateInterval_input" class="form-control" placeholder="Interval in seconds.0 means no transaction generated on this node." aria-label="Username" aria-describedby="addon-wrapping"></p>
+      <small class="text-muted">The interval of transaction generated</small>
+    </div>
+    <div href="#" class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Transaction Random Delay</h5>
+        <small>seconds</small>
+      </div>
+      <p class="mb-1"><input type="number" class="form-control txRandomDelay_input" class="form-control" placeholder="The range of random delay" aria-label="Username" aria-describedby="addon-wrapping"></p>
+      <small class="text-muted">Transaction delay in random</small>
+    </div>
+  </div>
+          
+          
+          
+        </div>
+        <div class="tab-pane fade" id="list-mine-2" role="tabpanel" aria-labelledby="list-mine-list-2">
+            <div href="#" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">Action Route</h5>
+                  <small>seconds</small>
+                </div>
+                <p class="mb-1 mining_route_wrapper"><input class="form-control" placeholder="Interval in seconds.0 means no transaction generated on this node." aria-label="Username" aria-describedby="addon-wrapping"></p>
+              
+                 <small class="text-muted">The interval of transaction generated</small>
+                </div>
+        </div>
+        <div class="tab-pane fade" id="list-messages-2" role="tabpanel" aria-labelledby="list-messages-list-2">...</div>
+        <div class="tab-pane fade" id="list-settings-2" role="tabpanel" aria-labelledby="list-settings-list-2">
+          <div href="#" class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">Loaded Consensus</h5>
+             
+            </div>
+            <p class="mb-1 consensus_loaded_p"><input type="text" disabled class="form-control maxTranPerBlock_input" class="form-control" placeholder="connect to an active node to show consensus loaded" aria-label="Username" aria-describedby="addon-wrapping"></p>
+            <small class="text-muted">import path:<span class="consensus_loaded_path"></span></small>
+          </div>
+          
+          <div class="user_setting_content"></div>
+  
+          <div class="save_conf_button_wrapper">
+            <button style="margin-top:10px;" type="button" class="btn btn-primary btn-block">Save</button>
+          </div>
+          
+  
+        </div>
+      </div>
+    </div>
+  </div>
+             
+             
+             
+             
+             
+             
+           </div>
+           
+           
+        </div>
+      </div>
+    </div> -->
+
+  <div id="generated"></div>
+
+
+
+
+
+<!--   
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse_2" aria-expanded="false" aria-controls="collapseTwo">
+          <i class="fas fa-server icon-right-margin"></i>Collapsible Group Item #2
+        </button>
+      </h2>
+    </div>
+    <div id="collapse_2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse_3" aria-expanded="false" aria-controls="collapse_3">
+          <i class="fas fa-server icon-right-margin"></i>Collapsible Group Item #3
+        </button>
+      </h2>
+    </div>
+    <div id="collapse_3" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+  </div> -->
+
+</div>
+        
+        
+        
+        
+        <!--
+        
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+
+->>
+
+<!-- Modal -->
+<div class="modal fade" id="experimentIDModal" tabindex="-1" role="dialog" aria-labelledby="experimentIDModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="experimentIDModalLable">Experiment ID</h5>
+        
+      </div>
+      
+      <ul class="nav nav-tabs" style="font-size: 14px">
+          <li class="nav-item">
+            <a class="nav-link expid_link active" href="#" id="go_to_current_exp_view_btn">Current</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link expid_link" href="#" id="go_to_create_exp_view_btn">New</a>
+          </li>
+        </ul>
+      
+      <div class="modal-body">
+        
+        <div id="choose_exp_id" >
+            <div class="form-group">
+            <label for="experimentIDModalSelect">Please choose an experiment.</label>
+            <select multiple class="form-control" id="experimentIDModalSelect">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+           
+           <div style="font-size: 14px;color: gray" id="expIdDescription">This is the description of this expid</div>
+            
+        </div>
+        
+        
+        <div id="new_exp_id_create">
+          <div class="form-group">
+            <label for="experimentIDInput">Experiment ID</label>
+            <input type="text" class="form-control" id="experimentIDInput" aria-describedby="experimentIDInput" placeholder="Enter an new experiment ID">
+          </div>
+          <div class="form-group">
+            <label for="user_name_input">User</label>
+            <input type="text" class="form-control" id="user_name_input" placeholder="Enter the user name">
+          </div>
+          
+          <div class="form-group">
+            <label for="desc_input">Description</label>
+            <input type="text" class="form-control" id="desc_input" placeholder="Enter the description of this experiment">
+          </div>
+          
+          <!--
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          -->
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="newExperientBtn">Start Experiment</button>
+      </div>
+    </div>
+  </div>
+</div>
+        
+
+    </main>
+    <!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <!-- Problem in bundlding, so we load jquery and bootstrap outside  -->
+    <script type="text/javascript" src="libs/jquery-3.3.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="node_modules/systemjs/dist/system.js"></script>
+    
+    <script>
+      /*global SystemJS*/
+        SystemJS.config({
+            baseURL:'js/',
+            packages: {
+            '/':{ defaultExtension: 'js'}
+            }
+        });
+        SystemJS.import('app.js');
+        
+    </script>
+
+</body>
+</html>
