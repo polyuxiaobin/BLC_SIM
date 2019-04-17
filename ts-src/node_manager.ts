@@ -223,9 +223,9 @@ export function generateNodes(num:number,from:number=1,append:boolean=false,anim
             html +=generateTemplateForNode(i);
     }
     if(append){
-        let origin = $('#generated').html();
+        //let origin = $('#generated').html();
         originalNodeNumber = $('#generated').find('.card').length;
-        $('#generated').html(origin + html);
+        $('#generated').append(html);
     }
     else{
         $('#generated').html(html);
@@ -270,7 +270,7 @@ function generateTemplateForNode(id:number,visible=true){
           <h2 class="mb-0" style="display: flex;
           justify-content: space-between;">
           <div>
-            <button class="btn btn-link " style="color:black" type="button" data-toggle="collapse" data-target="#collapse_${id}" aria-expanded="true" aria-controls="collapse_${id}">
+            <button class="btn btn-link node-toggle-btn" style="color:gray" type="button" data-toggle="collapse" data-target="#collapse_${id}" aria-expanded="true" aria-controls="collapse_${id}">
               <i class="fas fa-server icon-right-margin"></i>Node ${id} 
             </button>
     

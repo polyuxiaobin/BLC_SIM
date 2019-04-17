@@ -138,6 +138,7 @@ function setupConnectionBtn(){
             button.addClass("btn-primary");
             button.html("Connect");
             node_item.parent().find('.launchBtn').attr('disabled','disabled');
+            button.closest('.card').find('.node-toggle-btn').css('color','gray');
             return;
         }
         
@@ -147,6 +148,7 @@ function setupConnectionBtn(){
         if (!url){
             console.log('no url provided');
             node_item.parent().find('.launchBtn').attr('disabled','disabled');
+            button.closest('.card').find('.node-toggle-btn').css('color','gray');
             return;
         }
         url = Utils.convertToURL(url);
@@ -167,6 +169,7 @@ function setupConnectionBtn(){
             console.log('nodeControllerList',nodeControllerList);
             initNodeWithDefaults(url,collaspe_id);
             node_item.parent().find('.launchBtn').removeAttr('disabled');
+            button.closest('.card').find('.node-toggle-btn').css('color','black');
             Utils.showTip("Connected","This node is connected successfully.","primary",3);
         };
         let onFailure = (resp:any)=>{
@@ -174,6 +177,7 @@ function setupConnectionBtn(){
             button.removeClass("btn-outline-primary");
             button.addClass("btn-primary");
             button.html("Connect");
+            button.closest('.card').find('.node-toggle-btn').css('color','gray');
             Utils.showTip("DisConnected","This node cannot be connected.","danger",5);
         };
         Connector.checkAlive(url,null,onSuccess,onFailure);
