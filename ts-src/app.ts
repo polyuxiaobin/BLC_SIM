@@ -310,6 +310,7 @@ function getParameters(){
         cloud.set_attr(app,pwd);
         lean_cloud_config['appId'] = app;
         lean_cloud_config['key'] = pwd;
+        
         console.log(`Using appID=${app} and pwd=${pwd}`);
     }
     else{
