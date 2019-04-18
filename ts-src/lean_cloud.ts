@@ -9,7 +9,7 @@ export default class Cloud{
         this.key = lean_cloud_config.key;
     }
 
-    set_attr(appId:string,key:string){
+    public set_attr(appId:string,key:string){
         this.appId = appId;
         this.key = key;
     }

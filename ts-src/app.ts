@@ -7,6 +7,7 @@ import Utils from './utils';
 import { initNodeWithDefaults } from './data_fetcher';
 import { generateNodes, setupCustomInspectionEvents } from './node_manager';
 import { setupTopButtons } from './top_button_controller';
+import { lean_cloud_config } from './configurations';
 
 let cloud = new Cloud();
 let globalUser:string;
@@ -23,7 +24,7 @@ function init_app(){
             let id = exp['ID'];
             let comment = exp['comment'];
             let user = exp['user'];
-            console.log(id,comment,user);
+            //console.log(id,comment,user);
             let html = `<option class="display_experiment_comments" comment="${comment}" user="${user}" style="padding:5px;">${id} </option>`
             options_html = html + options_html;
             
@@ -300,8 +301,26 @@ for(let i:number=0;i<5;i++){
 }
 
 
+function getParameters(){
+    let url_string = window.location.href;
+    let url = new URL(url_string);
+    let app = url.searchParams.get("app");
+    let pwd = url.searchParams.get("pwd");
+    if(app && pwd){
+        cloud.set_attr(app,pwd);
+        lean_cloud_config['appId'] = app;
+        lean_cloud_config['key'] = pwd;
+        console.log(`Using appID=${app} and pwd=${pwd}`);
+    }
+    else{
+        console.log(`Using default settings: appID=${lean_cloud_config.appId} and pwd=${lean_cloud_config.key}`);
+    }
+
+}
+
 
 $('document').ready(()=>{
+    getParameters();
     init_app();
     generateNodes(5);
     setupConnectionBtn();

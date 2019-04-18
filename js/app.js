@@ -9,6 +9,7 @@ var utils_1 = require("./utils");
 var data_fetcher_1 = require("./data_fetcher");
 var node_manager_1 = require("./node_manager");
 var top_button_controller_1 = require("./top_button_controller");
+var configurations_1 = require("./configurations");
 var cloud = new lean_cloud_1["default"]();
 var globalUser;
 function init_app() {
@@ -23,7 +24,7 @@ function init_app() {
             var id = exp['ID'];
             var comment = exp['comment'];
             var user = exp['user'];
-            console.log(id, comment, user);
+            //console.log(id,comment,user);
             var html = "<option class=\"display_experiment_comments\" comment=\"" + comment + "\" user=\"" + user + "\" style=\"padding:5px;\">" + id + " </option>";
             options_html = html + options_html;
         });
@@ -273,7 +274,23 @@ var _loop_2 = function (i) {
 for (var i = 0; i < 5; i++) {
     _loop_2(i);
 }
+function getParameters() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var app = url.searchParams.get("app");
+    var pwd = url.searchParams.get("pwd");
+    if (app && pwd) {
+        cloud.set_attr(app, pwd);
+        configurations_1.lean_cloud_config['appId'] = app;
+        configurations_1.lean_cloud_config['key'] = pwd;
+        console.log("Using appID=" + app + " and pwd=" + pwd);
+    }
+    else {
+        console.log("Using default settings: appID=" + configurations_1.lean_cloud_config.appId + " and pwd=" + configurations_1.lean_cloud_config.key);
+    }
+}
 $('document').ready(function () {
+    getParameters();
     init_app();
     node_manager_1.generateNodes(5);
     setupConnectionBtn();
