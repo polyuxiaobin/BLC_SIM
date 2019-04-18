@@ -106,9 +106,39 @@
         
         
         <div>
-            <button class="btn btn-primary btn-sm" id="startAllBtn"  type="button" running="false" node_order="1">
+
+                      <!-- Example split danger button -->
+          <div class="btn-group">
+              <button type="button" class="btn btn-primary btn-sm"><i class="fas fa-code-branch" style="padding-right:5px;"></i>Connect All</button>
+              <button type="button" class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item btn-sm" href="#" id="startAllBtn"><i class="fas fa-sync-alt" style="padding-right:5px;"></i>Start All</a>
+                <a class="dropdown-item btn-sm" href="#">Another action</a>
+                <a class="dropdown-item btn-sm" href="#">Something else here</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item btn-sm" href="#">Separated link</a>
+              </div>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary btn-sm" id="addNewNodeBtn"><i class="fas fa-hockey-puck" style="padding-right:5px;"></i>New Instance</button>
+                <button type="button" class="btn btn-secondary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item btn-sm" href="#" id="startAllBtn"><i class="fas fa-sync-alt" style="padding-right:5px;"></i>Start All</a>
+                  <a class="dropdown-item btn-sm" href="#">Another action</a>
+                  <a class="dropdown-item btn-sm" href="#">Something else here</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item btn-sm" href="#">Separated link</a>
+                </div>
+              </div>
+
+            <!-- <button class="btn btn-primary btn-sm" id="startAllBtn"  type="button" running="false" node_order="1">
                 <i class="fas fa-sync-alt" style="padding-right:5px;"></i>Start All
-            </button>
+            </button> -->
 
             <button class="btn btn-secondary btn-sm" id="addNewNodeBtn"  type="button" running="false" node_order="1">
                 <i class="fas fa-hockey-puck" style="padding-right:5px;"></i>Add Instance

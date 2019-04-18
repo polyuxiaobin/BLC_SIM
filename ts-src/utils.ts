@@ -51,5 +51,20 @@ export default class Utils{
 
     public static getRandomInt(max:number):number {
         return Math.floor(Math.random() * Math.floor(max));
-      }
+    }
+
+    public static possionNumberGenerator(mean:number){
+        // implementation is from https://en.wikipedia.org/wiki/Poisson_distribution
+        //let mean = 5;
+        let L = Math.exp(-mean);
+        let p = 1.0;
+        let k = 0;
+    
+        do {
+            k++;
+            p *= Math.random();
+        } while (p > L);
+    
+        return k - 1;
+    }
 }

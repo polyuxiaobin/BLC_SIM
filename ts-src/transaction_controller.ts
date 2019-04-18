@@ -16,12 +16,15 @@ export class TransactionInstance{
     public startGenerateTransaction(){
         let url = this.url;
         let avgSec = this.avgSec;
-        let stdSec = this.stdSec;
+        //let stdSec = this.stdSec;
         let stopOnError = this.stopOnError;
         let startTime:number;
+        let possionDelay = Utils.possionNumberGenerator(avgSec);
+        startTime = possionDelay;
         if (avgSec == 0){
             return;
         }
+        /*
         if (stdSec == 0)
         {
             startTime = avgSec*1000;
@@ -29,10 +32,11 @@ export class TransactionInstance{
         else{
             startTime = avgSec*1000 + Utils.getRandomInt(stdSec*1000);
         }
+        */
         this.interval_handler = setInterval(()=>{
             Connector.getResponse(url,null,(resp)=>{
                 console.log(`${this.label} transaction result=`,resp);
-                
+                /*
                 if (stdSec == 0)
                 {
                     startTime = avgSec*1000;
@@ -40,6 +44,9 @@ export class TransactionInstance{
                 else{
                     startTime = avgSec*1000 + Utils.getRandomInt(stdSec*1000);
                 }
+                */
+               startTime = Utils.possionNumberGenerator(avgSec);
+               console.log(`Possion delay: ${startTime} secs`);
             },(resp)=>{
                 console.log('error in transaction',resp);
                 if(stopOnError)

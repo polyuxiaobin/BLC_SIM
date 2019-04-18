@@ -69,7 +69,7 @@ export function setupLaunchBehaviors(){
         let ip = div.find('.ip_input').val();
         let txRoute = div.find('.tx_route_wrapper>input').val();
         let txGenerateInterval = div.find('.txGenerateInterval_input').val();
-        let txRandomDelay = div.find('.txRandomDelay_input').val();
+        //let txRandomDelay = div.find('.txRandomDelay_input').val();
         let mineRoute = div.find('.mining_route_wrapper>input').val();
         let node_name = div.find('.node_id_value').val();
         if(!txGenerateInterval){
@@ -78,13 +78,15 @@ export function setupLaunchBehaviors(){
         else{
             txGenerateInterval = parseFloat(<string>txGenerateInterval);
         }
+        /*
         if(!txRandomDelay){
             txRandomDelay = 0;
         }
         else{
             txRandomDelay = parseFloat(<string>txRandomDelay);
         }
-        console.log(ip,txRoute,txGenerateInterval,txRandomDelay,mineRoute);
+        */
+        console.log(ip,txRoute,txGenerateInterval,mineRoute);
         if(!(ip && mineRoute)){
             Utils.showTip('Information Missing','Please make sure Action Route in mine is not empty.','danger',4);
             return;
@@ -95,7 +97,7 @@ export function setupLaunchBehaviors(){
         let mineInstance:MiningInstance = miningInstanceMap[selector];
         let txInstance:TransactionInstance = transactionInstanceMap[selector];
         let stopOnError = true;
-        let txString = `${txURL}-${txGenerateInterval}-${txRandomDelay}-${stopOnError}`;
+        let txString = `${txURL}-${txGenerateInterval}-${0}-${stopOnError}`;
         let mineString = `${miningURL}-${stopOnError}`;
         if (isRunning.trim() == "true"){
             $(button).attr('running','false');
@@ -122,7 +124,7 @@ export function setupLaunchBehaviors(){
                 mineInstance = miningInstanceMap[selector];
             }
             if(!txInstance || txInstance.toString() != txString){
-                transactionInstanceMap[selector] = new TransactionInstance(txURL,txGenerateInterval,txRandomDelay,true,node_name,node_order);
+                transactionInstanceMap[selector] = new TransactionInstance(txURL,txGenerateInterval,0,true,node_name,node_order);
                 txInstance = transactionInstanceMap[selector];
             }
             
@@ -165,6 +167,8 @@ export function setCloseBtnBehavior(){
         }
     });
 }
+
+
 
 function setButtonState(button:HTMLButtonElement,isRunning:boolean,div){
     if (isRunning){
@@ -368,12 +372,13 @@ function generateTemplateForNode(id:number,visible=true){
     
       <div href="#" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Transaction Generation Average Interval</h5>
+          <h5 class="mb-1">Transaction Generation Average Interval (Possion)</h5>
           <small>seconds</small>
         </div>
         <p class="mb-1"><input type="number" class="form-control txGenerateInterval_input" class="form-control" placeholder="Interval in seconds.0 means no transaction generated on this node." aria-label="Username" aria-describedby="addon-wrapping"></p>
         <small class="text-muted">The interval of transaction generated</small>
       </div>
+      <!--
       <div href="#" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
           <h5 class="mb-1">Transaction Random Delay</h5>
@@ -383,6 +388,7 @@ function generateTemplateForNode(id:number,visible=true){
         <small class="text-muted">Transaction delay in random</small>
       </div>
     </div>
+    -->
             
             
             
