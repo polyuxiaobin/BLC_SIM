@@ -20,27 +20,38 @@ var TransactionInstance = /** @class */ (function () {
         var _this = this;
         var url = this.url;
         var avgSec = this.avgSec;
-        var stdSec = this.stdSec;
+        //let stdSec = this.stdSec;
         var stopOnError = this.stopOnError;
         var startTime;
+        var possionDelay = utils_1["default"].possionNumberGenerator(avgSec);
+        startTime = possionDelay * 1000;
         if (avgSec == 0) {
             return;
         }
-        if (stdSec == 0) {
-            startTime = avgSec * 1000;
+        /*
+        if (stdSec == 0)
+        {
+            startTime = avgSec*1000;
         }
-        else {
-            startTime = avgSec * 1000 + utils_1["default"].getRandomInt(stdSec * 1000);
+        else{
+            startTime = avgSec*1000 + Utils.getRandomInt(stdSec*1000);
         }
+        */
         this.interval_handler = setInterval(function () {
             connector_1["default"].getResponse(url, null, function (resp) {
                 console.log(_this.label + " transaction result=", resp);
-                if (stdSec == 0) {
-                    startTime = avgSec * 1000;
+                /*
+                if (stdSec == 0)
+                {
+                    startTime = avgSec*1000;
                 }
-                else {
-                    startTime = avgSec * 1000 + utils_1["default"].getRandomInt(stdSec * 1000);
+                else{
+                    startTime = avgSec*1000 + Utils.getRandomInt(stdSec*1000);
                 }
+                */
+                var secs = utils_1["default"].possionNumberGenerator(avgSec);
+                startTime = secs * 1000;
+                console.log("Possion delay: " + secs + " secs");
             }, function (resp) {
                 console.log('error in transaction', resp);
                 if (stopOnError)

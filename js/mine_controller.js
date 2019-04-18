@@ -29,7 +29,8 @@ var MiningInstance = /** @class */ (function () {
     };
     MiningInstance.prototype.startMining = function () {
         this.continue_mining = true;
-        this.startMiningRecursive(this.url, this.stopOnError);
+        if (this.url)
+            this.startMiningRecursive(this.url, this.stopOnError);
     };
     MiningInstance.prototype.stopMining = function () {
         this.continue_mining = false;

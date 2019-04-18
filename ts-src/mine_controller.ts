@@ -25,7 +25,8 @@ export class MiningInstance{
 
     public startMining(){
         this.continue_mining = true;
-        this.startMiningRecursive(this.url,this.stopOnError);
+        if(this.url)
+            this.startMiningRecursive(this.url,this.stopOnError);
     }
 
     public stopMining(){

@@ -43,6 +43,18 @@ var Utils = /** @class */ (function () {
     Utils.getRandomInt = function (max) {
         return Math.floor(Math.random() * Math.floor(max));
     };
+    Utils.possionNumberGenerator = function (mean) {
+        // implementation is from https://en.wikipedia.org/wiki/Poisson_distribution
+        //let mean = 5;
+        var L = Math.exp(-mean);
+        var p = 1.0;
+        var k = 0;
+        do {
+            k++;
+            p *= Math.random();
+        } while (p > L);
+        return k - 1;
+    };
     return Utils;
 }());
 exports["default"] = Utils;

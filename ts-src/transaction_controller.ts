@@ -20,7 +20,7 @@ export class TransactionInstance{
         let stopOnError = this.stopOnError;
         let startTime:number;
         let possionDelay = Utils.possionNumberGenerator(avgSec);
-        startTime = possionDelay;
+        startTime = possionDelay*1000;
         if (avgSec == 0){
             return;
         }
@@ -45,8 +45,10 @@ export class TransactionInstance{
                     startTime = avgSec*1000 + Utils.getRandomInt(stdSec*1000);
                 }
                 */
-               startTime = Utils.possionNumberGenerator(avgSec);
-               console.log(`Possion delay: ${startTime} secs`);
+               let secs = Utils.possionNumberGenerator(avgSec);
+               startTime = secs * 1000;
+               console.log(`Possion delay: ${secs} secs`);
+               
             },(resp)=>{
                 console.log('error in transaction',resp);
                 if(stopOnError)

@@ -87,18 +87,22 @@ export function setupLaunchBehaviors(){
         }
         */
         console.log(ip,txRoute,txGenerateInterval,mineRoute);
-        if(!(ip && mineRoute)){
+        if(!(ip || mineRoute)){
             Utils.showTip('Information Missing','Please make sure Action Route in mine is not empty.','danger',4);
             return;
         }
         let url = Utils.convertToURL(<string>ip);
-        let miningURL = Utils.joinURL(url,<string>mineRoute);
+        let miningURL = null;
+        if (mineRoute)
+            miningURL = Utils.joinURL(url,<string>mineRoute);
         let txURL = Utils.joinURL(url,<string>txRoute);
         let mineInstance:MiningInstance = miningInstanceMap[selector];
         let txInstance:TransactionInstance = transactionInstanceMap[selector];
         let stopOnError = true;
         let txString = `${txURL}-${txGenerateInterval}-${0}-${stopOnError}`;
         let mineString = `${miningURL}-${stopOnError}`;
+        let txStopOnError:boolean = false;
+        let mineStopOnError:boolean = false;
         if (isRunning.trim() == "true"){
             $(button).attr('running','false');
             setButtonState(button,false,div);
@@ -120,11 +124,11 @@ export function setupLaunchBehaviors(){
             $(button).attr('running','true');
             setButtonState(button,true,div)
             if(!mineInstance || mineInstance.toString() != mineString){
-                miningInstanceMap[selector] = new MiningInstance(miningURL,true,node_name,node_order);
+                miningInstanceMap[selector] = new MiningInstance(miningURL,mineStopOnError,node_name,node_order);
                 mineInstance = miningInstanceMap[selector];
             }
             if(!txInstance || txInstance.toString() != txString){
-                transactionInstanceMap[selector] = new TransactionInstance(txURL,txGenerateInterval,0,true,node_name,node_order);
+                transactionInstanceMap[selector] = new TransactionInstance(txURL,txGenerateInterval,0,txStopOnError,node_name,node_order);
                 txInstance = transactionInstanceMap[selector];
             }
             
@@ -372,7 +376,7 @@ function generateTemplateForNode(id:number,visible=true){
     
       <div href="#" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Transaction Generation Average Interval (Possion)</h5>
+          <h5 class="mb-1">Possion Average Interval</h5>
           <small>seconds</small>
         </div>
         <p class="mb-1"><input type="number" class="form-control txGenerateInterval_input" class="form-control" placeholder="Interval in seconds.0 means no transaction generated on this node." aria-label="Username" aria-describedby="addon-wrapping"></p>
@@ -387,8 +391,9 @@ function generateTemplateForNode(id:number,visible=true){
         <p class="mb-1"><input type="number" class="form-control txRandomDelay_input" class="form-control" placeholder="The range of random delay" aria-label="Username" aria-describedby="addon-wrapping"></p>
         <small class="text-muted">Transaction delay in random</small>
       </div>
+      -->
     </div>
-    -->
+    
             
             
             
