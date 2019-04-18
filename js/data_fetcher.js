@@ -48,6 +48,8 @@ function getAvailableRoutes(base_url, node_item_ID, input_selector) {
         }
         var input_any = ($(input));
         input_any.autocomplete({ source: route_list });
+        var inspect_route_input = ($('#new_inspect_route_input'));
+        inspect_route_input.autocomplete({ source: route_list });
         var defaultTxRoute = '/sim/transaction';
         var defaultMineRoute = '/sim/mine';
         var route_list_any = route_list;

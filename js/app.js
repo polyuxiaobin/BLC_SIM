@@ -148,6 +148,7 @@ function setupConnectionBtn() {
             data_fetcher_1.initNodeWithDefaults(url, collaspe_id);
             node_item.parent().find('.launchBtn').removeAttr('disabled');
             button.closest('.card').find('.node-toggle-btn').css('color', 'black');
+            node_manager_1.setupCustomInspectionEvents();
             utils_1["default"].showTip("Connected", "This node is connected successfully.", "primary", 3);
         };
         var onFailure = function (resp) {

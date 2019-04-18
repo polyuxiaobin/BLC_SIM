@@ -1,4 +1,4 @@
-import { addNewNode } from "./node_manager";
+import { addNewNode, addNewInspectionPrompt } from "./node_manager";
 
 export function setupTopButtons(){
     $('#startAllBtn').on('click',(event)=>{
@@ -14,5 +14,9 @@ export function setupTopButtons(){
     });
     $('#saveConfBtn').on('click',(event)=>{
         console.log('save conf');
+    });
+    $('#new_inspect_btn').on('click',(event)=>{
+        console.log('save conf');
+        addNewInspectionPrompt();
     });
 }

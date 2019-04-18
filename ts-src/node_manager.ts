@@ -2,6 +2,7 @@ import Utils from "./utils";
 import { MiningInstance } from "./mine_controller";
 import { TransactionInstance } from "./transaction_controller";
 import Connector from "./connector";
+import global_states from "./states";
 
 let miningInstanceMap: {[id:string]:MiningInstance} = {};
 let transactionInstanceMap: {[id:string]:TransactionInstance} = {};
@@ -266,6 +267,100 @@ export function generateNodes(num:number,from:number=1,append:boolean=false,anim
 }
 
 
+export function addNewInspectionPrompt(){
+    $('#new_inspection_window').modal("show");
+    try {
+        let route_input = <any>($('#new_inspect_route_input'));
+        route_input.autocomplete( "option", "appendTo", ".eventInsForm" );
+    } catch (error) {
+        
+    }
+    $('#new_inspect_add_btn').off('click');
+    let detectInput = () =>{
+        let name =  $('#new_inspect_name_input').val().toString().trim();
+        let route = $('#new_inspect_route_input').val().toString().trim();
+        if(name && route && (<any>route).startsWith('/')){
+            $('#new_inspect_add_btn').removeAttr('disabled');
+        }
+        else{
+            $('#new_inspect_add_btn').attr('disabled','disabled');
+        }
+    };
+    $('#new_inspect_name_input').on('input',function(e){
+        detectInput();
+    });
+    $('#new_inspect_route_input').on('input',function(e){
+        detectInput();
+    });
+    $('#new_inspect_add_btn').off('click');
+    $('#new_inspect_add_btn').on('click',(event)=>{
+        let name =  $('#new_inspect_name_input').val().toString().trim();
+        let route = $('#new_inspect_route_input').val().toString().trim();
+        console.log(name,route);
+        addNewInspect(name,route);
+        let custom_key = 'custom_inspects';
+        if (!(custom_key in Object.keys(global_states))){
+            global_states['custom_inspects'] = {};
+        }
+        global_states['custom_inspects'][name] = route;
+        
+        $('#new_inspection_window').modal('hide');
+        setupCustomInspectionEvents();
+    });
+}
+
+export function setupCustomInspectionEvents(){
+    $('.custom_inspect_menu_item').off('click');
+    $('.custom_inspect_menu_item').on('click',(event)=>{
+        let item = $(event.target);
+        let href = item.attr('href');
+        let itemContentDiv = $(href);
+        let name = item.attr('name');
+        let route = item.attr('route');
+        let id = item.attr('nodeOrder');
+        let ip = <string>$(`#collapse_${id}`).find('.ip_input').val();
+        let base = Utils.convertToURL(ip);
+        let routeURL = Utils.joinURL(base,route);
+        
+        itemContentDiv.html("Reloading...");
+        Connector.getResponse(routeURL,null,(resp)=>{
+            //console.log('resp=',resp);
+            let div = <any>(itemContentDiv);
+            div.jsonViewer(resp,{collapsed: true,rootCollapsable:false});
+        },(error)=>{
+            //console.log("error=",error);
+            let innerHTML = generateInspectContent(name,routeURL);
+            itemContentDiv.html(innerHTML);
+        });
+        
+    });
+}
+
+function generateInspectContent(name,route){
+
+    return `<div>${name} -- ${route}</div>`;
+}
+
+
+function addNewInspect(name:string,route:string){
+    
+    let inspection_windows = $('.custom_inspection');
+    $.each(inspection_windows,(index,inspection_div)=>{
+        let list_group_id = $(inspection_div).closest('.list-group').attr('id');
+        let id = list_group_id.replace('list-tab-','');
+        let menuItem = `<a class="list-group-item list-group-item-action custom_inspect_menu_item" name="${name}"  route="${route}" nodeOrder="${id}"  data-toggle="list" href="#list-custom_${name}_${id}" role="tab" aria-controls="addinspect_${name}_${id}"><i class="fas fa-sync-alt" style="padding-right:5px;"></i>${name}</a>`;
+        //let group_list = $(`#list-group_content_${id}`);
+        let ip = $(`#collapse_${id}`).find('.ip_input').val();
+        //let inspectContent = generateInspectContent(ip);
+        let menuItemContent = `<div class="tab-pane fade" id="list-custom_${name}_${id}" role="tabpanel" aria-labelledby="list-addinspect-list-${id}">Loading...</div>`;
+        //group_list.append(menuItemContent);
+        
+        $(`#list-add-anchor-${id}`).parent().append(menuItemContent);
+        $(`#${list_group_id}`).append(menuItem);
+    });
+}
+
+
 function generateTemplateForNode(id:number,visible=true){
     let d_none = "";
     if(!visible){
@@ -307,10 +402,11 @@ function generateTemplateForNode(id:number,visible=true){
         <div class="list-group" id="list-tab-${id}" role="tablist">
           <a class="list-group-item list-group-item-action active" id="list-node-list-${id}" data-toggle="list" href="#list-node-${id}" role="tab" aria-controls="node">Node</a>
           <a class="list-group-item list-group-item-action" id="list-behavior-list-${id}" data-toggle="list" href="#list-behavior-${id}" role="tab" aria-controls="behavior">Transactions</a>
-          <a class="list-group-item list-group-item-action" id="list-messages-list-${id}" data-toggle="list" href="#list-mine-${id}" role="tab" aria-controls="mine">Mine</a>
+          <a class="list-group-item list-group-item-action" id="list-mining-list-${id}" data-toggle="list" href="#list-mine-${id}" role="tab" aria-controls="mine">Mine</a>
           <a class="list-group-item list-group-item-action" id="list-messages-list-${id}" data-toggle="list" href="#list-messages-${id}" role="tab" aria-controls="messages">Traffic</a>
           <a class="list-group-item list-group-item-action" id="list-settings-list-${id}" data-toggle="list" href="#list-settings-${id}" role="tab" aria-controls="settings">Settings</a>
-          <a class="list-group-item list-group-item-action" id="list-addinspect-list-${id}" data-toggle="list" href="#list-addinspect-${id}" role="tab" aria-controls="addinspect">New Inspection</a>
+          <div class="custom_inspection" id="custom_inspection_${id}"></div>
+          
         </div>
       </div>
       <div class="col-8">
@@ -363,7 +459,7 @@ function generateTemplateForNode(id:number,visible=true){
           <div class="tab-pane fade" id="list-behavior-${id}" role="tabpanel" aria-labelledby="list-behavior-list">
             
     
-           <div class="list-group">
+           <div class="list-group" id="list-group_content_${id}">
     
       <div href="#" class="list-group-item list-group-item-action">
           <div class="d-flex w-100 justify-content-between">
@@ -429,6 +525,11 @@ function generateTemplateForNode(id:number,visible=true){
             
     
           </div>
+
+          
+          
+          <div id="list-add-anchor-${id}"></div>
+          
         </div>
       </div>
     </div>

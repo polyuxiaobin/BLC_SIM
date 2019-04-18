@@ -5,7 +5,7 @@ import Connector from './connector';
 import NodeController from './node_controller';
 import Utils from './utils';
 import { initNodeWithDefaults } from './data_fetcher';
-import { generateNodes } from './node_manager';
+import { generateNodes, setupCustomInspectionEvents } from './node_manager';
 import { setupTopButtons } from './top_button_controller';
 
 let cloud = new Cloud();
@@ -170,6 +170,7 @@ function setupConnectionBtn(){
             initNodeWithDefaults(url,collaspe_id);
             node_item.parent().find('.launchBtn').removeAttr('disabled');
             button.closest('.card').find('.node-toggle-btn').css('color','black');
+            setupCustomInspectionEvents();
             Utils.showTip("Connected","This node is connected successfully.","primary",3);
         };
         let onFailure = (resp:any)=>{

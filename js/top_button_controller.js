@@ -15,6 +15,10 @@ function setupTopButtons() {
     $('#saveConfBtn').on('click', function (event) {
         console.log('save conf');
     });
+    $('#new_inspect_btn').on('click', function (event) {
+        console.log('save conf');
+        node_manager_1.addNewInspectionPrompt();
+    });
 }
 exports.setupTopButtons = setupTopButtons;
 //# sourceMappingURL=top_button_controller.js.map
