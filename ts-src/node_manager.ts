@@ -310,6 +310,7 @@ function generateTemplateForNode(id:number,visible=true){
           <a class="list-group-item list-group-item-action" id="list-messages-list-${id}" data-toggle="list" href="#list-mine-${id}" role="tab" aria-controls="mine">Mine</a>
           <a class="list-group-item list-group-item-action" id="list-messages-list-${id}" data-toggle="list" href="#list-messages-${id}" role="tab" aria-controls="messages">Traffic</a>
           <a class="list-group-item list-group-item-action" id="list-settings-list-${id}" data-toggle="list" href="#list-settings-${id}" role="tab" aria-controls="settings">Settings</a>
+          <a class="list-group-item list-group-item-action" id="list-addinspect-list-${id}" data-toggle="list" href="#list-addinspect-${id}" role="tab" aria-controls="addinspect">New Inspection</a>
         </div>
       </div>
       <div class="col-8">
