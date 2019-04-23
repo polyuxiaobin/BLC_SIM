@@ -14,7 +14,7 @@ export default class Cloud{
         this.key = key;
     }
     
-    lean_cloud_get(route:string)
+    lean_cloud_get(route:string,where?:any)
     {
         let request_url = 'https://' + this.appId.substr(0,8) +'.api.lncld.net/1.1' + route;
         let info = {
@@ -23,6 +23,10 @@ export default class Cloud{
             headers:{'X-LC-Id':this.appId,'X-LC-Key':this.key,"Content-Type":"text/plain;charset=UTF-8"}
             //xhrFields: {withCredentials: true}
         };
+        if(where){
+            let whereStr = JSON.stringify(where);
+            info["data"] = {"where":whereStr};
+        }
         let promise = $.ajax(info);
         return promise;
     }

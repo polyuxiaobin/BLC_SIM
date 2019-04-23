@@ -1,4 +1,6 @@
 import { addNewNode, addNewInspectionPrompt } from "./node_manager";
+import global_states from "./states";
+import { TrafficManager } from "./traffic_manager";
 
 export function setupTopButtons(){
     $('#startAllBtn').on('click',(event)=>{
@@ -18,5 +20,10 @@ export function setupTopButtons(){
     $('#new_inspect_btn').on('click',(event)=>{
         console.log('save conf');
         addNewInspectionPrompt();
+    });
+    $('#openTrafficCollectedBtn').on('click',(event)=>{
+        let expID:string = global_states['expID'];
+        let cloud = global_states['cloud'];
+        TrafficManager.downloadExperimentData(expID,cloud);
     });
 }

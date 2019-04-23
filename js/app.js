@@ -11,6 +11,7 @@ var node_manager_1 = require("./node_manager");
 var top_button_controller_1 = require("./top_button_controller");
 var configurations_1 = require("./configurations");
 var cloud = new lean_cloud_1["default"]();
+states_1["default"]['cloud'] = cloud;
 var globalUser;
 function init_app() {
     $('#new_exp_id_create').hide();
@@ -280,10 +281,15 @@ function getParameters() {
     var app = url.searchParams.get("app");
     var pwd = url.searchParams.get("pwd");
     if (app && pwd) {
-        cloud.set_attr(app, pwd);
-        configurations_1.lean_cloud_config['appId'] = app;
-        configurations_1.lean_cloud_config['key'] = pwd;
-        console.log("Using appID=" + app + " and pwd=" + pwd);
+        cloud.lean_cloud_get("/classes/Experiments").done(function (resp) {
+            cloud.set_attr(app, pwd);
+            configurations_1.lean_cloud_config['appId'] = app;
+            configurations_1.lean_cloud_config['key'] = pwd;
+            console.log("Using appID=" + app + " and pwd=" + pwd);
+        }).fail(function (error) {
+            console.log("incorrect appID and pwd.");
+            //show a window to input appID and pwd
+        });
     }
     else {
         console.log("Using default settings: appID=" + configurations_1.lean_cloud_config.appId + " and pwd=" + configurations_1.lean_cloud_config.key);

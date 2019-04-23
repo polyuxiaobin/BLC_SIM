@@ -10,6 +10,7 @@ import { setupTopButtons } from './top_button_controller';
 import { lean_cloud_config } from './configurations';
 
 let cloud = new Cloud();
+global_states['cloud'] = cloud;
 let globalUser:string;
 
 function init_app(){
@@ -307,11 +308,18 @@ function getParameters(){
     let app = url.searchParams.get("app");
     let pwd = url.searchParams.get("pwd");
     if(app && pwd){
-        cloud.set_attr(app,pwd);
-        lean_cloud_config['appId'] = app;
-        lean_cloud_config['key'] = pwd;
+        cloud.lean_cloud_get("/classes/Experiments").done((resp)=>{
+            cloud.set_attr(app,pwd);
+            lean_cloud_config['appId'] = app;
+            lean_cloud_config['key'] = pwd;
+
+            console.log(`Using appID=${app} and pwd=${pwd}`);
+        }).fail((error)=>{
+            console.log("incorrect appID and pwd.");
+            //show a window to input appID and pwd
+            
+        });
         
-        console.log(`Using appID=${app} and pwd=${pwd}`);
     }
     else{
         console.log(`Using default settings: appID=${lean_cloud_config.appId} and pwd=${lean_cloud_config.key}`);

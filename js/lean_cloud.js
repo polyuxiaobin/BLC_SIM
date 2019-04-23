@@ -12,7 +12,7 @@ var Cloud = /** @class */ (function () {
         this.appId = appId;
         this.key = key;
     };
-    Cloud.prototype.lean_cloud_get = function (route) {
+    Cloud.prototype.lean_cloud_get = function (route, where) {
         var request_url = 'https://' + this.appId.substr(0, 8) + '.api.lncld.net/1.1' + route;
         var info = {
             type: 'GET',
@@ -20,6 +20,10 @@ var Cloud = /** @class */ (function () {
             headers: { 'X-LC-Id': this.appId, 'X-LC-Key': this.key, "Content-Type": "text/plain;charset=UTF-8" }
             //xhrFields: {withCredentials: true}
         };
+        if (where) {
+            var whereStr = JSON.stringify(where);
+            info["data"] = { "where": whereStr };
+        }
         var promise = $.ajax(info);
         return promise;
     };
