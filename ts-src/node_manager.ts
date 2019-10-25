@@ -4,7 +4,7 @@ import { TransactionInstance } from "./transaction_controller";
 import Connector from "./connector";
 import global_states from "./states";
 
-//let miningInstanceMap: {[id:string]:MiningInstance} = {};
+let miningInstanceMap: {[id:string]:MiningInstance} = {};
 let transactionInstanceMap: {[id:string]:TransactionInstance} = {};
 
 
@@ -74,7 +74,7 @@ export function setupLaunchBehaviors(){
         let mineRoute = div.find('.mining_route_wrapper>input').val();
         let node_name = div.find('.node_id_value').val();
         if(!txGenerateInterval){
-            txGenerateInterval = 5;
+            txGenerateInterval = 0;
         }
         else{
             txGenerateInterval = parseFloat(<string>txGenerateInterval);
@@ -97,7 +97,7 @@ export function setupLaunchBehaviors(){
         if (mineRoute)
             miningURL = Utils.joinURL(url,<string>mineRoute);
         let txURL = Utils.joinURL(url,<string>txRoute);
-        //let mineInstance:MiningInstance = miningInstanceMap[selector];
+        let mineInstance:MiningInstance = miningInstanceMap[selector];
         let txInstance:TransactionInstance = transactionInstanceMap[selector];
         let stopOnError = true;
         let txString = `${txURL}-${txGenerateInterval}-${0}-${stopOnError}`;
@@ -124,12 +124,12 @@ export function setupLaunchBehaviors(){
             //miningInstanceList
             $(button).attr('running','true');
             setButtonState(button,true,div)
-            //if(!mineInstance || mineInstance.toString() != mineString){
-            //  miningInstanceMap[selector] = new MiningInstance(miningURL,mineStopOnError,node_name,node_order);
-            //    mineInstance = miningInstanceMap[selector];
-            //}
+            if(!mineInstance || mineInstance.toString() != mineString){
+              miningInstanceMap[selector] = new MiningInstance(miningURL,mineStopOnError,node_name,node_order);
+                mineInstance = miningInstanceMap[selector];
+            }
             if(!txInstance || txInstance.toString() != txString){
-                transactionInstanceMap[selector] = new TransactionInstance(txURL,10,0,txStopOnError,node_name,node_order);
+                transactionInstanceMap[selector] = new TransactionInstance(txURL,txGenerateInterval,0,txStopOnError,node_name,node_order);
                 txInstance = transactionInstanceMap[selector];
             }
             
