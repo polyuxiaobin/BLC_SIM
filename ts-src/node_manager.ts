@@ -74,7 +74,7 @@ export function setupLaunchBehaviors(){
         let mineRoute = div.find('.mining_route_wrapper>input').val();
         let node_name = div.find('.node_id_value').val();
         if(!txGenerateInterval){
-            txGenerateInterval = 10;
+            txGenerateInterval = 5;
         }
         else{
             txGenerateInterval = parseFloat(<string>txGenerateInterval);
