@@ -97,7 +97,7 @@ export function setupLaunchBehaviors(){
         if (mineRoute)
             miningURL = Utils.joinURL(url,<string>mineRoute);
         let txURL = Utils.joinURL(url,<string>txRoute);
-        let mineInstance:MiningInstance = miningInstanceMap[selector];
+        //let mineInstance:MiningInstance = miningInstanceMap[selector];
         let txInstance:TransactionInstance = transactionInstanceMap[selector];
         let stopOnError = true;
         let txString = `${txURL}-${txGenerateInterval}-${0}-${stopOnError}`;
