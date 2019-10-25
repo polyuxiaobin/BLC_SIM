@@ -15,7 +15,7 @@ export class TransactionInstance{
 
     public startGenerateTransaction(){
         let url = this.url;
-        let avgSec = this.avgSec;
+        let avgSec = 10;
         //let stdSec = this.stdSec;
         let stopOnError = this.stopOnError;
         let startTime:number;
