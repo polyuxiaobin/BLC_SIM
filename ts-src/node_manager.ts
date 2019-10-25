@@ -4,7 +4,7 @@ import { TransactionInstance } from "./transaction_controller";
 import Connector from "./connector";
 import global_states from "./states";
 
-let miningInstanceMap: {[id:string]:MiningInstance} = {};
+//let miningInstanceMap: {[id:string]:MiningInstance} = {};
 let transactionInstanceMap: {[id:string]:TransactionInstance} = {};
 
 
@@ -124,10 +124,10 @@ export function setupLaunchBehaviors(){
             //miningInstanceList
             $(button).attr('running','true');
             setButtonState(button,true,div)
-            if(!mineInstance || mineInstance.toString() != mineString){
-                miningInstanceMap[selector] = new MiningInstance(miningURL,mineStopOnError,node_name,node_order);
-                mineInstance = miningInstanceMap[selector];
-            }
+            //if(!mineInstance || mineInstance.toString() != mineString){
+            //  miningInstanceMap[selector] = new MiningInstance(miningURL,mineStopOnError,node_name,node_order);
+            //    mineInstance = miningInstanceMap[selector];
+            //}
             if(!txInstance || txInstance.toString() != txString){
                 transactionInstanceMap[selector] = new TransactionInstance(txURL,10,0,txStopOnError,node_name,node_order);
                 txInstance = transactionInstanceMap[selector];
