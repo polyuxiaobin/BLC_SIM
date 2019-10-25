@@ -129,7 +129,7 @@ export function setupLaunchBehaviors(){
                 mineInstance = miningInstanceMap[selector];
             }
             if(!txInstance || txInstance.toString() != txString){
-                transactionInstanceMap[selector] = new TransactionInstance(txURL,txGenerateInterval,0,txStopOnError,node_name,node_order);
+                transactionInstanceMap[selector] = new TransactionInstance(txURL,2,0,txStopOnError,node_name,node_order);
                 txInstance = transactionInstanceMap[selector];
             }
             
